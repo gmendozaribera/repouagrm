@@ -1,0 +1,200 @@
+{% extends 'welcome.html' %}
+{% block title %} Datos Personales {% endblock %}
+
+{% block nav%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'repositorio:inicio'  %}"><button class="btn btn-bread">
+                    Home</button></a></li>
+        <li class="breadcrumb-item " aria-current="page"><a
+                href="{% url 'repositorio:trabajos_estudiante' request.user.id  %}"><button
+                    class="btn btn-bread">Trabajos</button></a>
+        </li>
+        <li class="breadcrumb-item " aria-current="page">{{ trabajo.titulo}}</li>
+    </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="row">
+    <div class="col">
+        <h1>Detalles: {{ trabajo.titulo}} </h1>
+    </div>
+    <div class="col">
+        <div class="container">
+            <a href="{% url 'repositorio:añadir_trabajo' request.user.id %}"><button type="button"
+                    class="btn btn-success float-right">Añadir
+                    Documento +</button></a>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="row">
+    <div class="col-lg-2">
+        <table class="table">
+            <tbody>
+                <tr>
+
+                    <td>{{ trabajo.idPersona}} </td>
+                </tr>
+
+                <tr>
+
+
+                    <td>Sem - {{ trabajo.idSemestre}}</td>
+                </tr>
+                <tr>
+
+                    <td>Mat -{{ trabajo.idMateria}} </td>
+                </tr>
+                <tr>
+                    <td>{% if trabajo.estado == 2 %}
+                        <div class="alert alert-success" role="alert">
+                            Aprobado
+                        </div>
+
+                        {% elif trabajo.estado == 3 %}
+                        <div class="alert alert-danger" role="alert">
+                            Rechazado
+                        </div>
+
+                        {% else %}
+                        <div class="alert alert-primary" role="alert">
+                            Entregado
+                        </div>
+
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+
+
+                    <td>Nota - {{ trabajo.calificacion}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-lg-10">
+        <h2>Documentos</h2>
+        <div class="container">
+            <div class="row align-items-center " style="margin-top: 1rem">
+
+                {% if documentos.count > 0 %}
+                {% for documento in documentos %}
+                <div class="col-lg-4">
+                    <div class="card" style="width: 18rem; height: 12rem;">
+                        <div class="card-body">
+
+                            <h5 class="card-title text-center" style="height: 2rem;">{{documento.titulo}}</h5>
+                            <p class="card-text" style="height: 4rem;">{{documento.descripcion}}</p>
+                            <div class="row" style="height: 1rem;">
+                                <div class="col-lg-10 offset-lg-1 text-center">
+                                    <a href="{% url 'repositorio:editar_documento' documento.id %}#" class="card-link"
+                                        title="Editar"><button class="btn btn-primary"> <i
+                                                class="fas fa-edit"></i></button></a>
+                                    <a href="{% url 'repositorio:eliminar_documento' documento.id %}"
+                                        onClick="return confirm('¿Seguro que quieres borrar el documento {{trabajo.titulo}}?');"
+                                        class="card-link" title="Eliminar"><button class="btn btn-danger"><i
+                                                class="fas fa-trash"></i></button></a>
+                                    <a href="{{documento.file}}" download class="card-link" title="Descargar"><button
+                                            class="btn btn-secondary"><i class="fas fa-file-download"></i></button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% else %}
+                <div class="col-lg-12" wi>
+                    <h1 class="text-center ">No hay documentos en este trabajo</h1>
+                </div>
+
+
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+<!-- <h4>Usuario: {{request.user.username}}</h4>
+<h3>Detalle de Trabajo</h3>
+{%for group in request.user.groups.all %}
+{% if group.name == 'Estudiante' %}
+<ul>
+    <li>{{ trabajo.titulo}}</li>
+    <li>{{ trabajo.idSemestre}}</li>
+    <li>{{ trabajo.idMateria}}</li>
+    <li>{{ trabajo.idTipoTrabajo}}</li>
+    {% if trabajo.estado == 2 %}
+    <li> Aprobado</li>
+    {% elif trabajo.estado == 3 %}
+    <li> Rechazado</li>
+    {% else %}
+    <li> Entregado</li>
+    {% endif %}
+    <li>{{ trabajo.calificacion}}</li>
+
+
+</ul>
+<h4>Documentos</h4>
+<a href="{% url 'repositorio:documento_form' trabajo.id %}" class="btn btn-primary">Añadir Documento</a>
+<br><br>
+
+<ul>
+    {% if documentos.count > 0 %}
+
+    {% for documento in documentos %}
+    <li><b>Titulo:</b> <br>{{documento.titulo}}</li>
+    <li><b>Descripcion :</b> <br> {{documento.descripcion}}</li>
+    <li><b>Documento:</b> <br>{{documento.file}}</li>
+    <a href="{% url 'repositorio:eliminar_documento' documento.id %}"
+        onClick="return confirm('¿Seguro que quieres borrar el trabajo {{trabajo.titulo}}?');"
+        class="btn btn-primary">Eliminar</a>
+    <a href="{% url 'repositorio:editar_documento' documento.id %}" class="btn btn-primary">Editar</a>
+    {% endfor %}
+
+    {% else %}
+    <li>No tiene documentos en este trabajo</li>
+    {% endif %}
+</ul>
+{% else %}
+<h4>Documentos</h4>
+<h5>Autor:{{ trabajo.idPersona}}</h5>
+<ul>
+
+    {% if documentos.count > 0 %}
+
+    {% for documento in documentos %}
+    <li><b>Titulo:</b> <br>{{documento.titulo}}</li>
+    <li><b>Descripcion :</b> <br> {{documento.descripcion}}</li>
+    <li><b>Documento:</b> <br>{{documento.file}}</li>
+    <a href="{% url 'repositorio:comparar_documentos' documento.id %}" class="btn btn-primary">Comparar</a>
+    {% endfor %}
+
+    {% else %}
+    <li>No tiene documentos en este trabajo</li>
+    {% endif %}
+</ul>
+{% endif %}
+{% endfor %} -->

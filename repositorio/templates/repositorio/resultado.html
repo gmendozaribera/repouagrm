@@ -1,0 +1,13 @@
+<ul>
+    <li><b>Titulo:</b> <br>{{documento.titulo}}</li>
+    <li><b>Descripcion:</b><br>{{documento.descripcion}}</li>
+    <li><b>Documento:</b> <br>{{documento.file}}</li>
+    <li><b>Tipo de trabajo:</b> <br>{{documento.idTrabajo}}</li>
+    <li><b>Autor:</b><br>{{documento.idTrabajo.idPersona}}</li>
+</ul>
+<p>{{resultado}} </p>
+
+<a href="{% url 'repositorio:aprobar_trabajo' documento.id %}"  class="btn btn-primary">Aprobar</a>
+<br>
+<a href="{% url 'repositorio:rechazar_trabajo'  documento.id %}" class="btn btn-primary">Rechazar</a> <br><br>
+<a href="{% url 'repositorio:perfil'  %}" class="btn btn-primary">atrás</a>

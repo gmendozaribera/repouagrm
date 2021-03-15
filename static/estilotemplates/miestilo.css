@@ -1,0 +1,12 @@
+body { padding-bottom: 70px; }
+
+.btn-bread {
+    border-radius: 1.5rem;
+    padding: 0.1rem 0.50rem;
+    background-color: #007bff00;
+    font-weight: 200;
+    font-size: 0.8rem;
+}
+.btn-bread:hover {
+    background-color:  #525353a6;
+    color:white

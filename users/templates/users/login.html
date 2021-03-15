@@ -1,0 +1,41 @@
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/estilo.css' %}">
+{% block home %}
+<div class="container">
+  <div class="info">
+    <h1>
+      Ingresa
+    </h1>
+  </div>
+</div>
+<div class="form">
+  <div class="thumbnail">
+    <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/hat.svg" />
+  </div>
+
+  <!-- <form class="register-form">
+      <input ,="" placeholder="name" type="text" /><input ,="" placeholder="password" type="password" /><input ,="" placeholder="email address" type="text" /><button>create</button>
+      <p class="message">
+      
+      </p>
+    </form> -->
+  <form method="post" class="login-form">
+    {% csrf_token %}
+    {% for field in form %}
+
+    {{ field.errors }}
+    {{ field }}
+    <p class="help">{{ field.help_text|safe }}</p>
+    {% endfor %}
+    <button type="submit">Login</button>
+    <p class="message">
+      <a href="/register">Registrar usuario</a>
+    </p>
+  </form>
+
+</div>
+{% endblock %}
+
+
+

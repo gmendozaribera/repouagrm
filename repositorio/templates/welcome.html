@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static%}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'estilotemplates/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'estilotemplates/css/simple-sidebar.css' %}" rel="stylesheet" />
+    <link href="{% static 'estilotemplates/miestilo.css' %}" rel="stylesheet" />
+    <link href="{% static 'fonawesome/css/all.css' %}" rel="stylesheet" />
+
+
+    <title>{% block title %}{% endblock %} | Salas de Cine Peliculas y Programación</title>
+    {% load static %}
+
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        <div class="bg-light border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading">Repo<img class="mx-auto d-block"
+                    src="{% static 'estilotemplates/img/uagrm.png' %}" height="70" alt="sala"></div>
+
+            <div class="list-group list-group-flush">
+                <a href="{% url 'repositorio:datos_personales' request.user.id  %}"
+                    class="list-group-item list-group-item-action bg-light">
+                    Datos Personales
+                </a>
+                {% for group in request.user.groups.all %}
+
+                {% if group.name == "Estudiante" %}
+                <a href="{% url 'repositorio:trabajos_estudiante' request.user.id  %}"
+                    class="list-group-item list-group-item-action bg-light">
+                    Tus trabajos
+                </a>
+                {% else %}
+                <a href="" class="list-group-item list-group-item-action bg-light">
+                    Revisar trabajos
+                </a>
+                {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <button class="btn btn-primary" id="menu-toggle">
+                    < < </button>
+
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                                <!-- <li class="nav-item active">
+              <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Salas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Admin</a>
+            </li> -->
+                                <li class="nav-item dropdown">
+                                    {% for group in request.user.groups.all %}
+
+                                    {% if group.name == "Estudiante" %}
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{request.user.username}} <i class="fas fa-user-graduate pull-right"></i>
+                                    </a>
+                                    {% else %}
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{request.user.username}} <i class="fas fa-chalkboard-teacher"></i>
+                                    </a>
+                                    {% endif %}
+
+                                    {% endfor %}
+                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+            </nav>
+
+            {% block nav%}{% endblock %}
+            <div class="container">
+                {%block content%} {%endblock%}
+            </div>
+
+
+            <!-- Pié de página -->
+            <div id="page-content-wrapper" class="navbar navbar-fixed-bottom bg-light border-right">
+                <footer class="footer text-faded text-center py-5">
+                    <p class="m-0 mbt1">&copy; Repositorio UAGRM 2021</p>
+                </footer>
+            </div>
+
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'estilotemplates/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'estilotemplates/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function (e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+
+
+</body>
+
+
+
+</html>
+
+<!-- <h2><b>Bienvenido</b></h2>
+<p ><b style="text-transform:uppercase" >{{request.user.username}}</b> ({% for group in request.user.groups.all %} {{group.name}}){% endfor %} | <a href="/logout">Cerrar sesión</a></p>
+
+
+<a href="{% url 'repositorio:datos_personales' request.user.id  %}" class="btn btn-primary"><p>Datos Personales</p></a>
+{% for group in request.user.groups.all %} 
+
+{% if group.name == "Estudiante" %}
+<a href="{% url 'repositorio:trabajos_estudiante' request.user.id  %}" class="btn btn-primary"><p>Tus trabajos</p></a>
+{% else %}
+<a href="" class="btn btn-primary"><p>Revisar trabajos</p></a>
+{% endif %}
+
+{% endfor %}  -->

@@ -1,0 +1,143 @@
+{% extends 'welcome.html' %}
+{% block title %}Datos Personales{% endblock %}
+
+
+{% block nav%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'repositorio:inicio'  %}"><button class="btn btn-bread">
+                    Home</button></a></li>
+        <li class="breadcrumb-item " aria-current="page">Trabajos
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+{% block content%}
+
+
+<h1>Datos personales</h1>
+<a href="{% url 'repositorio:añadir_trabajo' request.user.id %}"><button type="button" class="btn btn-success">Añadir
+        Trabajo +</button></a>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2">
+
+        </div>
+        <div class="col-lg-8">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Materia</th>
+                        <th scope="col">Documentos</th>
+                        <th scope="col">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for trabajo in trabajos%}
+                    <tr>
+                        <td>{{trabajo.titulo}}</td>
+                        <td>{% if trabajo.estado == 2 %}
+                            <div class="alert alert-success" role="alert">
+                                Aprobado
+                            </div>
+
+                            {% elif trabajo.estado == 3 %}
+                            <div class="alert alert-danger" role="alert">
+                                Rechazado
+                            </div>
+
+                            {% else %}
+                            <div class="alert alert-primary" role="alert">
+                                Entregado
+                            </div>
+
+                            {% endif %}
+                        </td>
+                        <td>{{trabajo.idMateria}}</td>
+                        <td style="text-align: center;">
+                            {%for documento in documentos%}
+                            {% if documento.idTrabajo == trabajo.id %}
+
+                            {{documento.idTrabajo__count}}
+
+                            {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td><a href="{% url 'repositorio:detalle_trabajo' trabajo.id %}"><button class="btn btn-info">
+                                    Detalles</button></a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">NO TIENE TRABAJOS</td>
+
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-2">
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+
+<!-- <p><b style="text-transform:uppercase">{{request.user.username}}</b> ({% for group in request.user.groups.all %}
+    {{group.name}}){% endfor %} | <a href="/logout">Cerrar sesión</a></p>
+<a href="{% url 'repositorio:añadir_trabajo' request.user.id %}" class="button"><button>
+        Añadir Trabajo +</button></a>
+<table style="text-align: left;">
+    <caption>
+        <h2>Trabajos realizados</h4>
+    </caption>
+    <tr>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Materia</th>
+        <th>Cant Documentos</th>
+        <th>Detalles</th>
+    </tr>
+    {%for trabajo in trabajos%}
+    <tr>
+        <td>{{trabajo.titulo}}</td>
+        <td>{% if trabajo.estado == 2 %}
+            Aprobado
+            {% elif trabajo.estado == 3 %}
+            Rechazado
+            {% else %}
+            Entregado
+            {% endif %}
+        </td>
+        <td>{{trabajo.idMateria}}</td>
+        <td style="text-align: center;">{%for documento in documentos%}
+            {% if documento.idTrabajo == trabajo.id %}
+            {{documento.idTrabajo__count}}
+            {% endif %}
+            {% endfor %}
+        </td>
+        <td><a href="{% url 'repositorio:detalle_trabajo' trabajo.id %}" class="button"><button>
+                    Detalles</button></a></td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="7">NO TIENE TRABAJOS</td>
+
+    </tr>
+    {%endfor%}
+
+
+
+</table>
+
+<br>
+<br>
+
+
+<a href="{% url 'repositorio:inicio' %}" class="button"><button>
+        < < Atras</button></a> -->

@@ -1,0 +1,5 @@
+<form action ="{% url 'repositorio:documento_form' trabajo.id %}" enctype="multipart/form-data" method = "POST"> 
+    {% csrf_token %} 
+    {{form.as_p }} 
+    <input type="submit" value="Añadir"> 
+</form>

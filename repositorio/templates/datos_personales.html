@@ -1,0 +1,137 @@
+{% extends 'welcome.html' %}
+{% block title %}Datos Personales{% endblock %}
+
+
+{% block nav%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'repositorio:inicio'  %}"><button class="btn btn-bread">
+                    Home</button></a></li>
+        <li class="breadcrumb-item " aria-current="page">Datos Personales
+        </li>
+    </ol>
+</nav>
+{% endblock %}
+{% block content%}
+
+
+
+
+<h1>Datos personales</h1>
+<div class="container">
+   <div class="row">
+        <div class="col-lg-3 col-md-2">
+       
+    </div>
+    <div class="col-lg-6 col-md-8">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Nombre</th>
+                    <td> {{persona.nombre}} </td>
+                </tr>
+        
+                <tr>
+                    <th>Apellidos</th>
+                  
+                    <td> {{persona.apellidos}}</td>
+                </tr>
+                <tr>
+                    <th>Usuario</th>
+                    <td> {{request.user.username}} </td>
+                </tr>
+                <tr>
+                    <th>CI</th>
+                  
+                    <td>{{persona.ci}}</td>
+                </tr>
+                <tr>
+                    <th>Correo</th>
+                 
+                    <td>{{persona.correo}}</td>
+                </tr>
+                <tr>
+                    <th>Telefono</th>
+                    
+                    <td>{{persona.celular}}</td>
+                </tr>
+                <tr>
+                    <th>Fecha de Nacimiento</th>
+                    
+                    <td>{{persona.fechaNac}}</td>
+                </tr>
+                <tr>
+                    <th>Registro</th>
+                  
+                    <td>{{persona.registro}}</td>
+                </tr>
+                <tr>
+                    <th>Carrera</th>
+                    
+                    <td>{{persona.idCarrera}}</td>
+                </tr>
+            </tbody>
+        </table> 
+    </div>
+    <div class="col-lg-3 col-md-2">
+       
+    </div>
+   </div>
+  </div>
+
+
+{% endblock %}
+
+<!-- 
+<p ><b style="text-transform:uppercase" >{{request.user.username}}</b> ({% for group in request.user.groups.all %} {{group.name}}){% endfor %} | <a href="/logout">Cerrar sesión</a></p>
+    <table style="text-align: left;">
+
+        <caption><h2>Datos</h4></caption>
+
+        <tr>
+            <th>Nombre</th>
+            <td> {{persona.nombre}} </td>
+        </tr>
+
+        <tr>
+            <th>Apellidos</th>
+          
+            <td> {{persona.apellidos}}</td>
+        </tr>
+        <tr>
+            <th>Usuario</th>
+            <td> {{request.user.username}} </td>
+        </tr>
+        <tr>
+            <th>CI</th>
+          
+            <td>{{persona.ci}}</td>
+        </tr>
+        <tr>
+            <th>Correo</th>
+         
+            <td>{{persona.correo}}</td>
+        </tr>
+        <tr>
+            <th>Telefono</th>
+            
+            <td>{{persona.celular}}</td>
+        </tr>
+        <tr>
+            <th>Fecha de Nacimiento</th>
+            
+            <td>{{persona.fechaNac}}</td>
+        </tr>
+        <tr>
+            <th>Registro</th>
+          
+            <td>{{persona.registro}}</td>
+        </tr>
+        <tr>
+            <th>Carrera</th>
+            
+            <td>{{persona.idCarrera}}</td>
+        </tr>
+
+    </table>
+<br> -->

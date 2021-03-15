@@ -1,0 +1,12 @@
+<form action="{% url 'repositorio:aprobar_trabajo' documento.id %}" method="POST">
+    {% csrf_token %} 
+    <ul>
+     <li>
+       <label for="name">Nota de Calificación</label>
+       <input type="text" id="name" name="nota">
+     </li>
+    
+    </ul>
+    <button type="submit">Calificar</button>
+</form>
+<a href="{% url 'repositorio:perfil'  %}" class="btn btn-primary">atrás</a>
