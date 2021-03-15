@@ -26,7 +26,9 @@ SECRET_KEY = 'i8347j@h(y893c^b_9^mo5dvkzm@$&hv+)_!60gh*i-a=7sw)&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['57110c5bd1bd.ngrok.io','localhost','127.0.0.1']
+# ALLOWED_HOSTS = ['57110c5bd1bd.ngrok.io','localhost','127.0.0.1','www.repouagrm.com']
+
+ALLOWED_HOSTS = ['127.0.0.1','173.201.189.217','www.repouagrm.com','www.repouagrm.com/mysql']
 
 
 # Application definition
@@ -81,10 +83,10 @@ WSGI_APPLICATION = 'project_git.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'proyecto_git',
-        'USER': 'root',
-        'PASSWORD': 'sysinfo709@@',
-        'HOST': 'localhost',
+        'NAME': 'repoUagrm',
+        'USER': 'uagrm2021',
+        'PASSWORD': 'Sistema2021',
+        'HOST': '173.201.189.217',
         'PORT': '3306',
     }
 }
