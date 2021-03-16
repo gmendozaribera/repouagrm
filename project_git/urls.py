@@ -23,7 +23,6 @@ from django.conf import settings
 urlpatterns = [
     path('', include('repositorio.urls',namespace='repositorio')),
     path('', include('users.urls')),
-    path('', include('materia.urls', namespace='materia')),
-    #path('', RedirectView.as_view(url='login/', permanent=True)),
+    path('', RedirectView.as_view(url='login/', permanent=True)),
     path('admin/', admin.site.urls),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

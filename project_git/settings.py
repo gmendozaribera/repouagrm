@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
-    'repositorio',
-    'materia'
+    'repositorio'
 ]
 
 MIDDLEWARE = [
@@ -84,10 +83,10 @@ WSGI_APPLICATION = 'project_git.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'repoUagrm',
-        'USER': 'uagrm2021',
-        'PASSWORD': 'Sistema2021',
-        'HOST': '173.201.189.217',
+        'NAME': 'proyecto_git',
+        'USER': 'root', #
+        'PASSWORD': 'sysinfo709@@', #
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -142,10 +141,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static/'),)
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-
-
-
-## Este es un comentario de
