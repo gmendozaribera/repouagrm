@@ -1,5 +1,103 @@
-<form action ="{% url 'repositorio:documento_form' trabajo.id %}" enctype="multipart/form-data" method = "POST"> 
-    {% csrf_token %} 
-    {{form.as_p }} 
-    <input type="submit" value="Añadir"> 
-</form>
+{% extends 'welcome.html' %}
+{% block title %} Datos Personales {% endblock %}
+
+
+{% block nav%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'repositorio:inicio'  %}"><button class="btn btn-bread">
+                    Home</button></a></li>
+        <li class="breadcrumb-item " aria-current="page"><a
+                href="{% url 'repositorio:trabajos_estudiante' request.user.id  %}"><button
+                    class="btn btn-bread">Trabajos</button></a>
+        </li>
+        <li class="breadcrumb-item " aria-current="page">Añadir Trabajo</li>
+    </ol>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+        <h2 class="text-center">Nuevo Documento</h2>
+        <form action="{% url 'repositorio:añadir_documento' trabajo.id %}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {{form.as_p }}
+            <button type="submit" class="btn btn-primary">Añadir Documento</button>
+        </form>
+    </div>
+</div>
+
+<!-- 
+<form>
+    <div class="form-group">
+        <label for="id_titulo">Titulo</label>
+        <input type="text" class="form-control" name="titulo" id="id_titulo" maxlength="50">
+    </div>
+    <div class="form-group">
+        <label for="id_estado">Estado</label>
+        <select  name="estado" class="form-control" id="id_estado">
+            <option value="1">Entregado</option>
+            <option value="2">Aprobado</option>
+            <option value="3">Rechazado</option>
+
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id_calificacion">Calificación</label>
+        <input type="number" class="form-control" name="calificacion" id="id_calificacion" required value="0">
+    </div>
+
+    <div class="form-group">
+
+        <input type="hidden" class="form-control" name="idPersona" id="id_persona" required value="0">
+    </div>
+    <div class="form-group">
+        <label for="id_idGrupo">IdGrupo:</label>
+        <select name="idGrupo" class="form-control" id="id_idGrupo">
+            <option value="" >---------</option>
+            <option value="1" selected>SA</option>
+
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id_idSemestre">IdSemestre:</label>
+        <select name="idSemestre" class="form-control" id="id_idSemestre">
+            <option value="" selected>---------</option>
+
+            <option value="1">1-2021</option>
+
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id_idMateria">IdMateria:</label>
+        <select name="idMateria" class="form-control" id="id_idMateria">
+            <option value="" selected>---------</option>
+
+            <option value="1">Taller de Grado</option>
+
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="id_idTipoTrabajo">IdTipoTrabajo:</label>
+        <select class="form-control" name="idTipoTrabajo" id="id_idTipoTrabajo">
+            <option value="" selected>---------</option>
+
+            <option value="1">Práctico</option>
+
+            <option value="2">Proyecto</option>
+
+            <option value="3">Tarea</option>
+
+        </select>
+    </div>
+    <div class="form-group">
+    <label for="id_hashtag">Hashtag:</label> 
+    <select name="hashtag" class="form-control" required id="id_hashtag" multiple>
+        <option value="1">NLP</option>
+      
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Añadir</button>
+</form>-->
+
+{% endblock %}

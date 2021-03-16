@@ -1,5 +1,31 @@
-<form action ="{% url 'repositorio:editar_documento' documento.id %}" enctype="multipart/form-data" method = "POST"> 
-    {% csrf_token %} 
-    {{form.as_p }} 
-    <input type="submit" value="Añadir"> 
-</form>
+{% extends 'welcome.html' %}
+{% block title %} Datos Personales {% endblock %}
+{% block nav%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'repositorio:inicio'  %}"><button class="btn btn-bread">
+                    Home</button></a></li>
+        <li class="breadcrumb-item " aria-current="page"><a
+                href="{% url 'repositorio:trabajos_estudiante' request.user.id  %}"><button
+                    class="btn btn-bread">Trabajos</button></a>
+        </li>
+        <li class="breadcrumb-item " aria-current="page">Añadir Trabajo</li>
+    </ol>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+        <h2 class="text-center">Editar Documento</h2>
+        <form action="{% url 'repositorio:editar_documento' documento.id %}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            {{form.as_p }}
+            <button type="submit" class="btn btn-primary">Añadir Documento</button>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+

@@ -20,7 +20,18 @@
 
 
 
+<div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2">
+        <h2 class="text-center">Nuevo Trabajo</h2>
+        <form action="{% url 'repositorio:añadir_trabajo' persona.id %}" method="POST">
+            {% csrf_token %}
+            {{form.as_p }}
+            <button type="submit" class="btn btn-primary ">Añadir Trabajo</button>
+        </form>
+    </div>
+</div>
 
+<!-- 
 <form>
     <div class="form-group">
         <label for="id_titulo">Titulo</label>
@@ -39,11 +50,10 @@
         <label for="id_calificacion">Calificación</label>
         <input type="number" class="form-control" name="calificacion" id="id_calificacion" required value="0">
     </div>
+
     <div class="form-group">
-        <label for="id_persona">Persona</label>
-        <select name="idPersona" required class="form-control" id="id_persona">
-            <option value="1" selected>Alguna persona</option>
-        </select>
+
+        <input type="hidden" class="form-control" name="idPersona" id="id_persona" required value="0">
     </div>
     <div class="form-group">
         <label for="id_idGrupo">IdGrupo:</label>
@@ -92,14 +102,7 @@
       </select>
     </div>
     <button type="submit" class="btn btn-primary">Añadir</button>
-</form>
-
-
+</form>-->
 
 {% endblock %}
 
-<form action="{% url 'repositorio:añadir_trabajo' persona.id %}" method="POST">
-    {% csrf_token %}
-    {{form.as_p }}
-    <input type="submit" value="Añadir">
-</form>

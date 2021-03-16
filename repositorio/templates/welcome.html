@@ -45,7 +45,7 @@
                     Tus trabajos
                 </a>
                 {% else %}
-                <a href="" class="list-group-item list-group-item-action bg-light">
+                <a href="{% url 'repositorio:listar_trabajos'  %}" class="list-group-item list-group-item-action bg-light">
                     Revisar trabajos
                 </a>
                 {% endif %}

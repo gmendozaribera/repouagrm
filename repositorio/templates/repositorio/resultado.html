@@ -1,3 +1,88 @@
+{% extends 'welcome.html' %}
+{% block title %} Datos Personales {% endblock %}
+
+{% block nav%}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'repositorio:inicio'  %}"><button class="btn btn-bread">
+                    Home</button></a></li>
+        {% for group in request.user.groups.all %}
+
+        {% if group.name == "Estudiante" %}
+        <li class="breadcrumb-item " aria-current="page"><a
+                href="{% url 'repositorio:trabajos_estudiante' request.user.id  %}"><button
+                    class="btn btn-bread">Trabajos</button></a>
+        </li>
+        {% else %}
+        <li class="breadcrumb-item " aria-current="page"><a href="{% url 'repositorio:listar_trabajos' %}"><button
+                    class="btn btn-bread">Trabajos</button></a>
+        </li>
+        {% endif %}
+
+        {% endfor %}
+
+        <li class="breadcrumb-item " aria-current="page">{{ trabajo.titulo}}</li>
+    </ol>
+</nav>
+
+{% endblock %}
+
+{% block content %}
+<h2 class="text-center">Resultado</h2>
+<br>
+<div class="row">
+
+    <div class="col-lg-2">
+
+    </div>
+    <div class="col-lg-8">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Titulo:</th>
+                    <td> {{documento.titulo}}</td>
+                </tr>
+
+                <tr>
+                    <th>Descripcion:</th>
+
+                    <td>{{documento.descripcion}} </td>
+                </tr>
+                <tr>
+                    <th>Autor:</th>
+
+                    <td>{{documento.idTrabajo.idPersona}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <br>
+        <div class="alert alert-primary" role="alert">
+            <p>{{resultado}} </p>
+          </div>
+      
+        <br>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <a href="" class="card-link" title="Editar"><button class="btn btn-primary">Aprobar 
+                          </button></a>
+                    <a href="" class="card-link" title="Editar"><button class="btn btn-danger">Rechazar
+                           </button></a>
+
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+    <br>
+    <br>
+</div>
+
+{% endblock %}
 <ul>
     <li><b>Titulo:</b> <br>{{documento.titulo}}</li>
     <li><b>Descripcion:</b><br>{{documento.descripcion}}</li>
@@ -7,7 +92,7 @@
 </ul>
 <p>{{resultado}} </p>
 
-<a href="{% url 'repositorio:aprobar_trabajo' documento.id %}"  class="btn btn-primary">Aprobar</a>
+<a href="{% url 'repositorio:aprobar_trabajo' documento.id %}" class="btn btn-primary">Aprobar</a>
 <br>
 <a href="{% url 'repositorio:rechazar_trabajo'  documento.id %}" class="btn btn-primary">Rechazar</a> <br><br>
-<a href="{% url 'repositorio:perfil'  %}" class="btn btn-primary">atrás</a>
+<a href="{% url 'repositorio:inicio'  %}" class="btn btn-primary">atrás</a>

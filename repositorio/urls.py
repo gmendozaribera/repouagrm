@@ -9,7 +9,12 @@ urlpatterns = [
     path('user/trabajos/<id>',trabajos_estudiante, name= 'trabajos_estudiante'), 
     path('user/<id>/addtrabajo',añadir_trabajo, name= 'añadir_trabajo'),
     path('trabajo/<id>/',trabajo_detail, name= 'detalle_trabajo'),
-    path('trabajo/<id>/addocument',añadir_documento, name= 'documento_form'),
+    path('trabajos/listar',listar_trabajos, name= 'listar_trabajos'),
+     path('trabajos/<id>/consulta_comparar',consulta_comparar, name= 'consulta_comparar'),
+
+
+
+    path('trabajo/<int:id>/addocument',añadir_documento, name= 'añadir_documento'),
     path('trabajo/<id>/eliminar',eliminar_trabajo, name= 'eliminar_trabajo'),
     path('trabajo/<id>/eleminardocumento',eliminar_documento, name= 'eliminar_documento'),
     path('trabajo/<id>/editardocumento',editar_documento, name= 'editar_documento'), 

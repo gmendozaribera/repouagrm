@@ -34,10 +34,37 @@ def trabajos_estudiante(request,id):
     print(documentos)
     return render(request, "repositorio/trabajo_estudiante.html",context={'trabajos':trabajos,'documentos':documentos})
 
+
 def trabajo_detail(request, id):
     documentos = Documento.objects.filter(idTrabajo= id)  
     trabajo = Trabajo.objects.get(id=id)    
     return render(request, "repositorio/trabajo_detail.html",context={"documentos":documentos,"trabajo":trabajo})
+
+def añadir_trabajo(request, id):
+    if request.method == 'POST':
+        form = TrabajoForm(request.POST)
+        if (form.is_valid()):
+            documento = form.save()
+            persona = Persona.objects.get(id=id)
+            return HttpResponseRedirect(reverse('repositorio:trabajos_estudiante',args=([persona.user.pk])))
+        else:
+            print(form) 
+            persona = Persona.objects.get(id=id)
+            form = TrabajoForm({'idPersona':persona.id})
+            return render(request, "repositorio/trabajo_form.html",context={'form':form,'persona':persona})
+    else:
+        persona = Persona.objects.get(user=id)
+        form = TrabajoForm({'idPersona':persona.id})
+        return render(request, "repositorio/trabajo_form.html",context={'form':form,'persona':persona})
+
+def eliminar_trabajo(request, id):
+    # Recuperamos la instancia de la persona y la borramos
+    
+    instancia = Trabajo.objects.get(id=id)
+    persona = Persona.objects.get(id=instancia.idPersona.pk)
+    instancia.delete()
+    # Después redireccionamos de nuevo a la lista
+    return HttpResponseRedirect(reverse('repositorio:trabajos_estudiante', args= (persona.user.pk,)))
 
 def añadir_documento(request, id):
     if request.method == 'POST':
@@ -47,23 +74,17 @@ def añadir_documento(request, id):
             documento = form.save()
             print(documento)
             Documento.objects.filter(pk=documento.id).update(idTrabajo=id)
-            return HttpResponseRedirect(reverse('repositorio:detalle_trabajo', args= (id)))
+            return HttpResponseRedirect(reverse('repositorio:detalle_trabajo', args= (id,)))
         else: 
             print('invalido')
             trabajo = Trabajo.objects.get(pk=id)
-            form = DocumentoForm()
+            form = DocumentoForm({'idTrabajo': trabajo.id })
             return render(request, 'repositorio/documento_form.html', {'form':form,'trabajo':trabajo})
     else:
-        trabajo = Trabajo.objects.get(pk=id)
-        form = DocumentoForm()
+        trabajo = Trabajo.objects.get(id=id)
+        form = DocumentoForm({'idTrabajo': trabajo.id })
         return render(request, "repositorio/documento_form.html",context={'form':form,'trabajo':trabajo})
 
-def eliminar_trabajo(request, id):
-    # Recuperamos la instancia de la persona y la borramos
-    instancia = Trabajo.objects.get(id=id)
-    instancia.delete()
-    # Después redireccionamos de nuevo a la lista
-    return HttpResponseRedirect(reverse('repositorio:perfil'))
 
 def editar_documento(request, id):
     # Recuperamos la instancia de la persona
@@ -90,6 +111,8 @@ def editar_documento(request, id):
 
     # Si llegamos al final renderizamos el formulario
     return render(request, "repositorio/documento_edit.html", {'form': form,"documento":instancia})
+
+
 def eliminar_documento(request, id):
     # Recuperamos la instancia de la persona y la borramos
     instancia = Documento.objects.get(id=id)
@@ -99,21 +122,10 @@ def eliminar_documento(request, id):
     # Después redireccionamos de nuevo a la lista
     return HttpResponseRedirect(reverse('repositorio:detalle_trabajo',args=([instancia.idTrabajo.pk])))
 
-
-def añadir_trabajo(request, id):
-    if request.method == 'POST':
-        form = TrabajoForm(request.POST)
-        if (form.is_valid()):
-            documento = form.save()
-            return HttpResponseRedirect(reverse('repositorio:perfil'))
-        else: 
-            persona = Persona.objects.get(user=id)
-            form = TrabajoForm()
-            return render(request, "repositorio/trabajo_form.html",context={'form':form,'persona':persona})
-    else:
-        persona = Persona.objects.get(user=id)
-        form = TrabajoForm()
-        return render(request, "repositorio/trabajo_form.html",context={'form':form,'persona':persona})
+def consulta_comparar(request,id):
+    documentos = Documento.objects.get(id= id) 
+    print(documentos)
+    return render(request, "repositorio/consulta_comparar.html",context={"documentos":documentos})
 
 def comparar_documentos(request, id):
     documentos = Documento.objects.get(id= id) 
@@ -139,7 +151,14 @@ def aprobar_trabajo(request, id):
         nota = int(alldata.get('nota'))
         Trabajo.objects.filter(id=documento.idTrabajo.pk).update(calificacion=nota)
         Trabajo.objects.filter(id=documento.idTrabajo.pk).update(estado=2)
-        return HttpResponseRedirect(reverse('repositorio:perfil'))
+        return HttpResponseRedirect(reverse('repositorio:inicio'))
         
     else:
         return render(request, "repositorio/aprobar_form.html",context={"documento":documento})
+
+        
+def listar_trabajos(request):
+    trabajos = Trabajo.objects.filter(estado=1)
+    documentos = Documento.objects.values('idTrabajo').annotate(Count('idTrabajo')).order_by()
+    print(documentos)
+    return render(request, "repositorio/listar_trabajo.html",context={'trabajos':trabajos,'documentos':documentos})

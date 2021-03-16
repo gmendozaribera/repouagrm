@@ -36,15 +36,10 @@
 
     </div>
     <div class="col-lg-8 text-center">
-      <form action="{% url 'repositorio:comparar_documentos' documentos.id %}" method="POST">
-        {% csrf_token %} 
-        <div class="form-group mx-sm-3 mb-2">
-          <label for="linkId" class="sr-only">Password</label>
-          <input type="text" name="enlace" class="form-control" id="linkId" placeholder="https://www.mysite.com/work.pdf">
-        </div><br>
-        <button type="submit" class="btn btn-primary mb-2">Comparar</button>
-
-    </form>
+        <a href="" class="card-link"
+        title="Editar"><button class="btn btn-primary">Documento Local</button></a>
+        <a href="{% url 'repositorio:comparar_documentos' documentos.id %}" class="card-link"
+        title="Editar"><button class="btn btn-primary">Link Externo</button></a>
     </div>
     <div class="col-lg-2">
 
@@ -54,17 +49,3 @@
 </div>
 
 {% endblock %}
-
-
-<form action="{% url 'repositorio:comparar_documentos' documentos.id %}" method="POST">
-    {% csrf_token %} 
-    <ul>
-     <li>
-       <label for="name">Ingrese un enlace</label>
-       <input type="text" id="name" name="enlace">
-     </li>
-    
-    </ul>
-    <button type="submit">Comparar</button>
-</form>
-<a href="{% url 'repositorio:perfil'  %}" class="btn btn-primary">atrás</a>

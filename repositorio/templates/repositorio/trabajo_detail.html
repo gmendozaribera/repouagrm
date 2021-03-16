@@ -6,10 +6,21 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{% url 'repositorio:inicio'  %}"><button class="btn btn-bread">
                     Home</button></a></li>
+        {% for group in request.user.groups.all %}
+
+        {% if group.name == "Estudiante" %}
         <li class="breadcrumb-item " aria-current="page"><a
                 href="{% url 'repositorio:trabajos_estudiante' request.user.id  %}"><button
                     class="btn btn-bread">Trabajos</button></a>
         </li>
+        {% else %}
+        <li class="breadcrumb-item " aria-current="page"><a href="{% url 'repositorio:listar_trabajos' %}"><button
+                    class="btn btn-bread">Trabajos</button></a>
+        </li>
+        {% endif %}
+
+        {% endfor %}
+
         <li class="breadcrumb-item " aria-current="page">{{ trabajo.titulo}}</li>
     </ol>
 </nav>
@@ -24,13 +35,22 @@
     <div class="col">
         <h1>Detalles: {{ trabajo.titulo}} </h1>
     </div>
+    {% for group in request.user.groups.all %}
+
+    {% if group.name == "Estudiante" %}
     <div class="col">
         <div class="container">
-            <a href="{% url 'repositorio:añadir_trabajo' request.user.id %}"><button type="button"
+            <a href="{% url 'repositorio:añadir_documento' trabajo.id %}"><button type="button"
                     class="btn btn-success float-right">Añadir
                     Documento +</button></a>
         </div>
     </div>
+    {% else %}
+  
+    {% endif %}
+
+    {% endfor %}
+    
 
 </div>
 
@@ -98,15 +118,30 @@
                             <p class="card-text" style="height: 4rem;">{{documento.descripcion}}</p>
                             <div class="row" style="height: 1rem;">
                                 <div class="col-lg-10 offset-lg-1 text-center">
+                                    {% for group in request.user.groups.all %}
+
+                                    {% if group.name == "Estudiante" %}
                                     <a href="{% url 'repositorio:editar_documento' documento.id %}#" class="card-link"
                                         title="Editar"><button class="btn btn-primary"> <i
                                                 class="fas fa-edit"></i></button></a>
+
                                     <a href="{% url 'repositorio:eliminar_documento' documento.id %}"
                                         onClick="return confirm('¿Seguro que quieres borrar el documento {{trabajo.titulo}}?');"
                                         class="card-link" title="Eliminar"><button class="btn btn-danger"><i
                                                 class="fas fa-trash"></i></button></a>
+                                    {% else %}
+                                    <a href="{% url 'repositorio:consulta_comparar' documento.id %}#" class="card-link"
+                                        title="Comparar"><button class="btn btn-primary">Comparar</button></a>
+                                    {% endif %}
+
+                                    {% endfor %}
+
+
                                     <a href="{{documento.file}}" download class="card-link" title="Descargar"><button
                                             class="btn btn-secondary"><i class="fas fa-file-download"></i></button></a>
+
+
+
                                 </div>
                             </div>
                         </div>
