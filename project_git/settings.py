@@ -82,6 +82,12 @@ WSGI_APPLICATION = 'project_git.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+""" DATABASES = {
+    'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'proyecto_git',
         'USER': 'root', #
@@ -89,7 +95,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '3306',
     }
-}
+} """
 
 """ DATABASES = {
     'default': {
