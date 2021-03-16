@@ -139,10 +139,23 @@ def comparar_documentos(request, id):
     else:
         return render(request, "repositorio/comparar_documento.html",context={"documentos":documentos})
 
+def comparar_local(request, id):
+    documento = Documento.objects.get(id=id)
+    documentos = Documento.objects.exclude(idTrabajo=documento.idTrabajo)
+    ruta1 = 'media/'+ str(documento.file)
+    if request.method == 'POST':
+        alldata = request.POST
+        ruta2 ='media/' + str(alldata.get('documento2'))
+        print(ruta2)
+        resultado = detector(os.path.join(BASE_DIR, ruta2),os.path.join(BASE_DIR, ruta1))
+        return render(request, "repositorio/resultado.html",context={"resultado":resultado,"documento":documento})
+    else:
+        return render(request, "repositorio/comparar_local.html",context={"documentos":documentos,"documento":documento})
+
 def rechazar_trabajo(request, id):
     documento = Documento.objects.get(id= id)
     Trabajo.objects.filter(id=documento.idTrabajo.pk).update(estado=3)
-    return HttpResponseRedirect(reverse('repositorio:detalle_trabajo',args=([documento.idTrabajo.pk])))
+    return HttpResponseRedirect(reverse('repositorio:listar_trabajos'))
         
 def aprobar_trabajo(request, id):
     documento = Documento.objects.get(id= id) 
@@ -151,7 +164,7 @@ def aprobar_trabajo(request, id):
         nota = int(alldata.get('nota'))
         Trabajo.objects.filter(id=documento.idTrabajo.pk).update(calificacion=nota)
         Trabajo.objects.filter(id=documento.idTrabajo.pk).update(estado=2)
-        return HttpResponseRedirect(reverse('repositorio:inicio'))
+        return HttpResponseRedirect(reverse('repositorio:listar_trabajos'))
         
     else:
         return render(request, "repositorio/aprobar_form.html",context={"documento":documento})

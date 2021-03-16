@@ -65,9 +65,9 @@
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    <a href="" class="card-link" title="Editar"><button class="btn btn-primary">Aprobar 
+                    <a href="{% url 'repositorio:aprobar_trabajo' documento.id %}" class="card-link" title="Rechazar"><button class="btn btn-primary">Aprobar 
                           </button></a>
-                    <a href="" class="card-link" title="Editar"><button class="btn btn-danger">Rechazar
+                    <a href="{% url 'repositorio:rechazar_trabajo'  documento.id %}" class="card-link" title="Rechazar"><button class="btn btn-danger">Rechazar
                            </button></a>
 
                 </div>

@@ -10,8 +10,8 @@ urlpatterns = [
     path('user/<id>/addtrabajo',añadir_trabajo, name= 'añadir_trabajo'),
     path('trabajo/<id>/',trabajo_detail, name= 'detalle_trabajo'),
     path('trabajos/listar',listar_trabajos, name= 'listar_trabajos'),
-     path('trabajos/<id>/consulta_comparar',consulta_comparar, name= 'consulta_comparar'),
-
+    path('trabajos/<id>/consulta_comparar',consulta_comparar, name= 'consulta_comparar'),
+    path('trabajos/<id>/comparar_local',comparar_local, name= 'comparar_local'),
 
 
     path('trabajo/<int:id>/addocument',añadir_documento, name= 'añadir_documento'),

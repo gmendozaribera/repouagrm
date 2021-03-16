@@ -1,4 +1,3 @@
-
 {% extends 'welcome.html' %}
 {% block title %} Datos Personales {% endblock %}
 
@@ -32,36 +31,33 @@
 <h2 class="text-center">Comparar con</h2>
 <br>
 <div class="row">
-    
+
     <div class="col-lg-2">
 
     </div>
     <div class="col-lg-8 text-center">
-      <form action="{% url 'repositorio:aprobar_trabajo' documento.id %}" method="POST">
-        {% csrf_token %} 
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Calificación</label>
-          <input type="text" name="nota" class="form-control" id="exampleFormControlInput1" placeholder="Introduce calificación">
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Calificar</button>
-    </form>
+        <form action="{% url 'repositorio:comparar_local' documento.id %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="linkId" class="sr-only">Password</label>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Seleccione un Documento</label>
+                    <select name="documento2" class="form-control" id="exampleFormControlSelect1">
+                        {% for documento in documentos %}
+                        <option value="{{documento.file}}">{{ documento.titulo}} - {{documento.idTrabajo}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div><br>
+            <button type="submit" class="btn btn-primary mb-2">Comparar</button>
+
+        </form>
     </div>
     <div class="col-lg-2">
+
     </div>
     <br>
     <br>
 </div>
 
 {% endblock %}
-
-<form action="{% url 'repositorio:aprobar_trabajo' documento.id %}" method="POST">
-    {% csrf_token %} 
-    <ul>
-     <li>
-       <label for="name">Nota de Calificación</label>
-       <input type="text" id="name" name="nota">
-     </li>
-    
-    </ul>
-    <button type="submit">Calificar</button>
-</form>
