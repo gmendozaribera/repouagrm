@@ -12,8 +12,6 @@ urlpatterns = [
     path('trabajos/listar',listar_trabajos, name= 'listar_trabajos'),
     path('trabajos/<id>/consulta_comparar',consulta_comparar, name= 'consulta_comparar'),
     path('trabajos/<id>/comparar_local',comparar_local, name= 'comparar_local'),
-
-
     path('trabajo/<int:id>/addocument',añadir_documento, name= 'añadir_documento'),
     path('trabajo/<id>/eliminar',eliminar_trabajo, name= 'eliminar_trabajo'),
     path('trabajo/<id>/eleminardocumento',eliminar_documento, name= 'eliminar_documento'),

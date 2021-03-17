@@ -25,4 +25,4 @@ urlpatterns = [
     path('', include('users.urls')),
     path('', RedirectView.as_view(url='login/', permanent=True)),
     path('admin/', admin.site.urls),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
